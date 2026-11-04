@@ -7,13 +7,15 @@ input{width:100%;font:inherit;color:inherit;background:var(--sf);border:1px soli
 details{background:var(--sf);border-radius:14px;margin-bottom:8px;overflow:hidden}summary{list-style:none;display:flex;gap:12px;align-items:center;padding:10px 12px}summary::-webkit-details-marker{display:none}
 .s{width:44px;height:44px;border-radius:10px;flex:none;box-shadow:inset 0 0 0 1px #fff2}.t{flex:1;min-width:0}.t b{display:block}.t small{color:var(--t2)}.g{font-weight:700;white-space:nowrap}
 .o{opacity:.5}ul{margin:0;padding:0 12px 10px 68px;list-style:none;font-size:14px;color:var(--t2)}li{display:flex;justify-content:space-between;gap:8px;padding:3px 0}
+h2{font-size:17px;margin:20px 0 8px;padding-bottom:5px;border-bottom:2px solid var(--ac);display:flex;justify-content:space-between;align-items:baseline}h2 span{font-weight:400;font-size:13px;color:var(--t2)}
 </style></head><body><h1>Filamenteca</h1><p id="m">Cargando…</p><input id="q" type="search" placeholder="Buscar" aria-label="Buscar"><div id="l"></div>
 <script>
 var D=[],E=function(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})};
 var G=function(g){return g>=1000?(g/1000).toLocaleString('es-ES',{maximumFractionDigits:2})+' kg':Math.round(g)+' g'};
 var L={sealed:'Precintada',open:'Abierta'};
 function P(){var q=document.getElementById('q').value.toLowerCase(),r=D.filter(function(f){return (f.c+' '+f.b+' '+f.m+' '+f.f).toLowerCase().indexOf(q)>=0});
-document.getElementById('l').innerHTML=r.map(function(f){return '<details class="'+(f.s+f.o?'':'o')+'"><summary><span class="s" style="background:'+(f.h2?'linear-gradient(135deg,'+E(f.h)+','+E(f.h2)+')':E(f.h))+'"></span><span class="t"><b>'+E(f.c)+'</b><small>'+E(f.b)+' · '+E(f.m)+' '+E(f.f)+'</small></span><span class="g">'+G(f.g)+'</span></summary><ul>'+f.r.map(function(x){return '<li><span>'+E(x[0])+' · '+L[x[1]]+(x[3]?' · '+E(x[3]):'')+'</span><span>'+G(x[2])+'</span></li>'}).join('')+'</ul></details>'}).join('')}
+var cur=null,tot={};r.forEach(function(f){var t=tot[f.m]=tot[f.m]||{n:0,g:0};t.n++;t.g+=f.g});
+document.getElementById('l').innerHTML=r.map(function(f){var h='';if(f.m!==cur){cur=f.m;h='<h2>'+E(f.m)+'<span>'+tot[f.m].n+' · '+G(tot[f.m].g)+'</span></h2>'}return h+'<details class="'+(f.s+f.o?'':'o')+'"><summary><span class="s" style="background:'+(f.h2?'linear-gradient(135deg,'+E(f.h)+','+E(f.h2)+')':E(f.h))+'"></span><span class="t"><b>'+E(f.c)+'</b><small>'+E(f.b)+' · '+E(f.m)+' '+E(f.f)+'</small></span><span class="g">'+G(f.g)+'</span></summary><ul>'+f.r.map(function(x){return '<li><span>'+E(x[0])+' · '+L[x[1]]+(x[3]?' · '+E(x[3]):'')+'</span><span>'+G(x[2])+'</span></li>'}).join('')+'</ul></details>'}).join('')}
 function S(d){var it=d.items||d,g=0,n=0;D=it;it.forEach(function(f){g+=f.g;n+=f.s+f.o});document.getElementById('m').textContent=n+' bobinas · '+G(g)+(d.at?' · actualizado '+new Date(d.at).toLocaleString('es-ES',{dateStyle:'short',timeStyle:'short'}):'');P()}
 function W(){document.getElementById('m').textContent='No se pudieron cargar los datos. Comprueba la conexión.'}
 function C(){var id=location.hash.slice(1);
